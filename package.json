@@ -1,0 +1,52 @@
+{
+    "name": "nuxt-my-icons",
+    "description": "All-in-one toolkit for using SVG icons in your Nuxt site!",
+    "version": "1.0.0",
+    "keywords": [
+        "nuxt",
+        "icon",
+        "icons",
+        "svg",
+        "vue"
+    ],
+    "repository": "Gwynerva/nuxt-my-icons",
+    "homepage": "https://github.com/Gwynerva/nuxt-my-icons",
+    "author": {
+        "name": "Gwynerva <https://github.com/Gwynerva>",
+        "url": "https://github.com/Gwynerva"
+    },
+    "license": "MIT",
+    "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/types.d.ts",
+            "import": "./dist/module.mjs",
+            "require": "./dist/module.cjs"
+        }
+    },
+    "main": "./dist/module.cjs",
+    "types": "./dist/types.d.ts",
+    "files": ["dist"],
+    "scripts": {
+        "prepack": "nuxt-module-build build",
+        "dev": "nuxi dev playground",
+        "dev:build": "nuxi build playground",
+        "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+        "release": "npm run prepack && npm publish && git push --follow-tags"
+    },
+    "dependencies": {
+        "@nuxt/kit": "^3.15.2"
+    },
+    "devDependencies": {
+        "@nuxt/devtools": "^1.7.0",
+        "@nuxt/eslint-config": "^0.7.5",
+        "@nuxt/module-builder": "^0.8.4",
+        "@nuxt/schema": "^3.15.2",
+        "@nuxt/test-utils": "^3.15.4",
+        "@types/jest": "^29.5.14",
+        "@types/node": "latest",
+        "nuxt": "^3.15.2",
+        "typescript": "~5.7.3",
+        "vue-tsc": "^2.2.0"
+    }
+}

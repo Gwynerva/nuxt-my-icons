@@ -1,0 +1,12 @@
+{
+    "extends": "./.nuxt/tsconfig.json",
+    "compilerOptions":{
+        "strictPropertyInitialization": false,
+        "types": ["jest"]
+    },
+    "exclude": [
+        "dist",
+        "node_modules",
+        "playground",
+    ]
+}
