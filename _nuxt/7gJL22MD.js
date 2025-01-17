@@ -1,1 +1,0 @@
-const s="__missing",e="/foo/bar/_my-icons",t="9542cfa9c7",o={house:0,human:0,plus:0,"arrow/left":0};function c(n){return n in o}const a=Object.freeze(Object.defineProperty({__proto__:null,isMyIcon:c,myIconNames:o,myIconSetHash:t,myIconSetUrl:e,myMissingIconName:s},Symbol.toStringTag,{value:"Module"}));export{t as a,c as b,a as i,e as m};
