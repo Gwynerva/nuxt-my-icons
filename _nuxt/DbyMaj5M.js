@@ -1,2 +1,0 @@
-import{_ as n}from"./_-OkQXTc.js";import{i as a}from"./CqFVMzLa.js";import{e as r,o as s,c as m,a as e,b as p,w as i,d as l,t as _,F as u}from"./BNKOEZi-.js";const g=r({__name:"import",setup(c){return(d,t)=>{const o=n;return s(),m(u,null,[t[1]||(t[1]=e("h2",null,"Import Data",-1)),p(o,{to:"/"},{default:i(()=>t[0]||(t[0]=[l("Index")])),_:1}),e("pre",null,""+_(JSON.stringify(a,null,4))+`
-    `,1)],64)}}});export{g as default};

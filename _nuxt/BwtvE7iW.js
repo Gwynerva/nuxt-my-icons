@@ -1,0 +1,2 @@
+import{_ as n}from"./DW_H4Dil.js";import{i as a}from"./7gJL22MD.js";import{e as r,o as s,c as m,a as e,b as p,w as i,d as l,t as _,F as u}from"./yMH19FGs.js";const g=r({__name:"import",setup(c){return(d,t)=>{const o=n;return s(),m(u,null,[t[1]||(t[1]=e("h2",null,"Import Data",-1)),p(o,{to:"/"},{default:i(()=>t[0]||(t[0]=[l("Index")])),_:1}),e("pre",null,""+_(JSON.stringify(a,null,4))+`
+    `,1)],64)}}});export{g as default};
