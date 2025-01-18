@@ -1,6 +1,7 @@
+import chokidar from 'chokidar';
 import { defineNuxtModule, createResolver, updateTemplates, type Resolver, addComponentsDir, addPlugin, addComponent } from '@nuxt/kit'
 
-import { createModuleError, MODULE_PACKAGE_NAME, MODULE_INTERNAL_PREFIX } from './global';
+import { createModuleError, MODULE_PACKAGE_NAME, MODULE_INTERNAL_PREFIX } from './runtime/global';
 import { ICONS, updateIconsData } from './state';
 import { PATH, templatePath, templatePublicPath } from './path';
 import { LOGGER } from './logger';
@@ -10,9 +11,9 @@ import { createIconsTemplate } from './templates/icons';
 
 export interface ModuleOptions {
     /**
-     * Directory **relative** to the Nuxt `<rootDir>` where `.svg` icons to use with this module are located.
+     * Directory with `.svg` icons which will be bundled into icon set.
      *
-     * @default "assets/icons"
+     * @default "~~/assets/icons"
      */
     iconsDir: string;
 
@@ -45,7 +46,7 @@ export default defineNuxtModule<ModuleOptions>({
         }
     },
     defaults: {
-        iconsDir: 'assets/icons',
+        iconsDir: '~~/assets/icons',
         publicDir: '_my-icons',
     },
     async setup(_options, _nuxt) {
@@ -58,9 +59,8 @@ export default defineNuxtModule<ModuleOptions>({
         NUXT_BUILD_DIR_PATH = await RESOLVER.resolvePath('#build');
         MODULE_BUILD_DIR_PATH = await RESOLVER.resolvePath('#build/' + MODULE_INTERNAL_PREFIX);
 
-        PATH.ICONS_DIR = await RESOLVER.resolvePath(`~~/${_options.iconsDir}`);
+        PATH.ICONS_DIR = await RESOLVER.resolvePath(_options.iconsDir);
         PATH.PUBLIC_RELATIVE = _options.publicDir;
-        PATH.MODULE_ASSETS_DIR = RESOLVER.resolve('./assets');
 
         await ensurePathsAreSafe();
 
@@ -71,6 +71,22 @@ export default defineNuxtModule<ModuleOptions>({
         _nuxt.options.alias ||= {};
         _nuxt.options.alias[mainTemplate.aliasKey] = await RESOLVER.resolvePath('#build/' + mainTemplate.aliasValue);
 
+        // Watching changes to icons and updating icons data, then templates (which rely on icons data)
+        if (META.development)
+        {
+            chokidar.watch(PATH.ICONS_DIR, { ignoreInitial: true }).on('all', (_event, _path) => {
+                clearTimeout(UPDATE_DELAY);
+                UPDATE_DELAY = setTimeout(async () => {
+                    if (RESOLVER.resolve(_path).startsWith(PATH.ICONS_DIR)) {
+                        LOGGER.info('Icons directory changed! Updating icons data...');
+                        updateIconsData();
+                        await updateModuleTemplates();
+                        logBuildFinish();
+                    }
+                }, 200);
+            });
+        }
+
         // Registering components users can use to insert icons
         addComponentsDir({
             path: RESOLVER.resolve('./runtime/components/public'),
@@ -79,7 +95,7 @@ export default defineNuxtModule<ModuleOptions>({
 
         // Prerendering runtime icons when SSR is enabled
         addPlugin({
-            src: RESOLVER.resolve('./runtime/plugins/ssrRuntimeIcons.ts'),
+            src: RESOLVER.resolve('./runtime/plugins/ssrRuntimeIcons'),
             mode: 'server',
         });
 
@@ -94,25 +110,10 @@ export default defineNuxtModule<ModuleOptions>({
                 maxAge: META.development ? 0 : 60 * 60 * 24 * 30,
             });
         },
-        'builder:watch': (_event, _path) => {
-            // Watching changes to icons and updating icons data, then templates (which rely on icons data)
-            clearTimeout(UPDATE_DELAY);
-            UPDATE_DELAY = setTimeout(async () => {
-                if (_path.startsWith(OPTIONS.iconsDir))
-                {
-                    LOGGER.info('Icons directory changed! Updating icons data...');
-                    updateIconsData();
-                    await updateModuleTemplates();
-                    logBuildFinish();
-                }
-            }, 200);
-        },
-        // Hook into app init and add prefetch of `icons.svg?hash` file so icons would load immediately!
     }
 });
 
-async function ensurePathsAreSafe()
-{
+async function ensurePathsAreSafe() {
     const prohibitedPathMatch = OPTIONS.publicDir.match(/(^\/|^\.\/|^\.\.\/|\/\.\/|\/\.\.\/)/);
 
     if (prohibitedPathMatch)
@@ -131,15 +132,13 @@ async function ensurePathsAreSafe()
         throw createModuleError(`The module static assets directory "${modulePublicDirPath}" must be within Nuxt "<buildDir>" directory: "${NUXT_BUILD_DIR_PATH}"!`);
 }
 
-async function updateModuleTemplates()
-{
+async function updateModuleTemplates() {
     await updateTemplates({
         filter: template => template.filename.startsWith(MODULE_INTERNAL_PREFIX),
     });
 }
 
-function logBuildFinish()
-{
+function logBuildFinish() {
     if (ICONS.count === 0) LOGGER.warn(`No icons registered!`);
     else LOGGER.success(ICONS.count + ' ' + (ICONS.count === 1 ? 'icon' : 'icons') + ' registered!');
 }

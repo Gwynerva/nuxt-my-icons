@@ -1,4 +1,4 @@
-import { fnv1a64 } from '~/src/utils/hash';
+import { fnv1a64 } from '~/src/runtime/utils/hash';
 
 test('Same hash for same text', () => {
     const text = 'Hello World!';

@@ -1,7 +1,7 @@
 {
     "name": "nuxt-my-icons",
     "description": "All-in-one toolkit for using SVG icons in your Nuxt site!",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "nuxt",
         "icon",
@@ -36,6 +36,9 @@
     },
     "dependencies": {
         "@nuxt/kit": "^3.15.2"
+    },
+    "peerDependencies": {
+        "chokidar": "^4.0.3"
     },
     "devDependencies": {
         "@nuxt/devtools": "^1.7.0",

@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     //     baseURL: '/foo/bar/',
     // },
     // myicons: {
-    //     iconsDir: 'alternative-icons',
+    //     iconsDir: '~/alternative-icons',
     //     publicDir: 'foo/bar/baz',
     // },
     // ssr: false,

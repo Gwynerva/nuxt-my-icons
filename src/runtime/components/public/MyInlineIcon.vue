@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 
 import { createInlineIconData, createMissingIconData, type IconData, type InlineIconProps } from '../../icon';
-import { createSvgSymbol, getSvgHash, parseSvg } from '../../../utils/svg';
+import { createSvgSymbol, getSvgHash, parseSvg } from '../../utils/svg';
 import { warn } from '../../logger';
 
 import Icon from '../internal/Icon.vue';

@@ -1,4 +1,4 @@
-import { createSvgSymbol, parseSvg } from '~/src/utils/svg';
+import { createSvgSymbol, parseSvg } from '~/src/runtime/utils/svg';
 
 describe('Parse SVG', () => {
     test('Normal SVG', () => {

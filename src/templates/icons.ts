@@ -2,7 +2,7 @@ import { addTemplate } from '@nuxt/kit';
 
 import { version } from '../../package.json';
 import { ICONS } from '../state';
-import { indent } from '../utils/str';
+import { indent } from '../runtime/utils/str';
 import { templatePublicPath } from '../path';
 
 export function createIconsTemplate()

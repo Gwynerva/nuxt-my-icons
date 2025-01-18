@@ -1,4 +1,4 @@
-import { indent, removeCarriageReturns } from '~/src/utils/str';
+import { indent, removeCarriageReturns } from '~/src/runtime/utils/str';
 
 test('Remove Carriage Returns', () => {
     expect(removeCarriageReturns('\r\n\r\n')).toBe('\n\n');

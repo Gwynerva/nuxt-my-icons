@@ -1,6 +1,6 @@
 import { useNuxtApp } from '#app';
 import { type MyIconName, myIconSetHash, myIconSetRelativeUrl } from '#my-icons';
-import { MISSING_ICON_NAME } from '../global';
+import { MISSING_ICON_NAME } from './global';
 
 //
 // Icon Data

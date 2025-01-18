@@ -5,7 +5,7 @@ import { useHead } from '#imports';
 import { isMyIcon } from '#my-icons';
 import { iconBundleUrl, createBundleIconData, createMissingIconData, type BundleIconProps, type IconData } from '../../icon';
 import { warn } from '../../logger';
-import { MISSING_ICON_NAME } from '../../../global';
+import { MISSING_ICON_NAME } from '../../global';
 
 import Icon from '../internal/Icon.vue';
 

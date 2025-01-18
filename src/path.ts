@@ -1,9 +1,6 @@
-import { MODULE_INTERNAL_PREFIX } from './global';
+import { MODULE_INTERNAL_PREFIX } from './runtime/global';
 
 export const PATH = {
-    /** Path to module assets directory */
-    MODULE_ASSETS_DIR: '',
-
     /** Directory, where module looks for `.svg` icons. */
     ICONS_DIR: '',
 

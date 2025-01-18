@@ -1,6 +1,6 @@
 import { addTemplate, addTypeTemplate } from '@nuxt/kit';
 
-import { MISSING_ICON_NAME, MODULE_ALIAS } from '../global';
+import { MISSING_ICON_NAME, MODULE_ALIAS } from '../runtime/global';
 import { PATH, templatePath } from '../path';
 import { ICONS } from '../state';
 

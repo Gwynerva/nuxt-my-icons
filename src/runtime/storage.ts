@@ -1,5 +1,5 @@
-import { MODULE_PACKAGE_NAME } from '../global';
-import { indent } from '../utils/str';
+import { MODULE_PACKAGE_NAME } from './global';
+import { indent } from './utils/str';
 
 export function getStorageElement()
 {

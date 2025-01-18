@@ -2,7 +2,7 @@
 <img src="./logotype.svg" width="100px" style="border-radius: 10px;" />
 </p>
 
-<h1 style="text-align: center;">My Icons</h1>
+<h1>My Icons</h1>
 
 All-in-one toolkit for using SVG icons in your Nuxt site!
 
@@ -17,13 +17,31 @@ See it in action in [demo](https://gwynerva.github.io/nuxt-my-icons) page!
 
 ## Installation
 
+### Manual
+
+Install module from npm:
+
+```bash
+npm i nuxt-my-icons -D
+```
+
+Add module to `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+    modules: [
+        'nuxt-my-icons',
+    ],
+});
+```
+
+### Using `nuxi`
+
 Install the module to your Nuxt application with one command:
 
 ```bash
 npx nuxi module add nuxt-my-icons
 ```
-
-That's it! You can now use "My Icons" in your Nuxt app! ✨
 
 ## How to use
 

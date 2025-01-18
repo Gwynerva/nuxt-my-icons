@@ -1,4 +1,4 @@
-import { MODULE_TITLE } from '../global';
+import { MODULE_TITLE } from './global';
 
 export function log(message: string)
 {

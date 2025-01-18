@@ -1,6 +1,6 @@
-import { defineNuxtPlugin } from '#app';
+import { defineNuxtPlugin } from '#imports';
 
-import { MODULE_INTERNAL_PREFIX } from '../../global';
+import { MODULE_INTERNAL_PREFIX } from '../global';
 import { createStorageHtml } from '../storage';
 
 export default defineNuxtPlugin(_nuxtApp => {

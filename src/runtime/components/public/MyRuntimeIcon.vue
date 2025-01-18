@@ -4,8 +4,8 @@ import { useNuxtApp } from '#app';
 
 import { warn } from '../../logger';
 import { createMissingIconData, createRuntimeIconData, type RuntimeIconProps } from '../../icon';
-import { createSvgSymbol, getSvgHash, parseSvg } from '../../../utils/svg';
-import { MODULE_INTERNAL_PREFIX } from '../../../global';
+import { createSvgSymbol, getSvgHash, parseSvg } from '../../utils/svg';
+import { MODULE_INTERNAL_PREFIX } from '../../global';
 import { createStorageElement, getStorageElement, storeRuntimeIcon } from '../../storage';
 
 import Icon from '../internal/Icon.vue';
