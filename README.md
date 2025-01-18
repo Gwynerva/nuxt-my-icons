@@ -1,5 +1,5 @@
 <p align="center" style="text-align: center;">
-<img src="./logotype.svg" width="100px" style="border-radius: 10px;" />
+<img src="./public/logotype.png" width="100px" style="border-radius: 10px;" />
 </p>
 
 <h1>My Icons</h1>
@@ -176,7 +176,7 @@ export default defineNuxtConfig({
     myicons: {
         /**
          * Directory where your `.svg` icons are stored.
-         * @default 'assets/icons'
+         * @default '~~/assets/icons'
          */
         iconsDir: 'alternative/path/to/icons',
 
