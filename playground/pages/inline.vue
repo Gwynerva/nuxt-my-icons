@@ -28,7 +28,7 @@ onMounted(() => {
         <MyInlineIcon name="Runtime SVG 3" :svg="svg3" />
         <MyInlineIcon name="Await SVG" :svg="svgAwait" />
         <h3>Changing icon:</h3>
-        <MyRuntimeIcon name="Timeout SVG" :svg="currentChanging" />
+        <MyInlineIcon name="Timeout SVG" :svg="currentChanging" />
     </div>
     <div>
         <h3>Inline icons:</h3>

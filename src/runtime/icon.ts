@@ -14,6 +14,7 @@ interface BaseIconData
     name: string;
     href: string;
     wrapper: 'div' | 'span';
+    forceRerender: boolean;
 }
 
 export interface BundleIconData extends BaseIconData
@@ -66,6 +67,7 @@ function createBaseIconData(props: IconProps): Omit<BaseIconData, 'type' | 'href
     return {
         name: props.name,
         wrapper: props.wrapper || 'div',
+        forceRerender: false,
     }
 }
 
@@ -94,6 +96,7 @@ export function createInlineIconData(props: InlineIconProps, href: string, symbo
        type: 'inline',
        href,
        symbol: symbol,
+       forceRerender: true,
     }
 }
 

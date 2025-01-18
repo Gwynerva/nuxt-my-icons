@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { ref, watch } from 'vue';
 import type { IconData } from '../../icon';
 
-const { data } = defineProps<{ data: IconData }>();
+const props = defineProps<{ data: IconData }>();
+const key = ref(0);
 
-const symbol = computed(() => {
-    if (data.type === 'inline')
-        return data.symbol;
-
-    return false;
+watch(props, () => {
+    if (props.data.forceRerender)
+        key.value++;
 });
 </script>
 
@@ -17,8 +16,8 @@ const symbol = computed(() => {
         :is="data.wrapper"
         :my-icon="data.name"
         :my-icon-type="data.type">
-        <svg>
-            <defs v-if="symbol" v-html="symbol"></defs>
+        <svg :key>
+            <defs v-if="data.type === 'inline'" v-html="data.symbol"></defs>
             <use :href="data.href" />
         </svg>
     </component>
