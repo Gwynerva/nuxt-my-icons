@@ -13,7 +13,7 @@ All-in-one toolkit for using SVG icons in your Nuxt site!
 * Auto detection of non-existing/invalid icon names.
 * Registering new icons in runtime optimised for repeated use.
 
-See it in action in [demo](https://gwynerva.github.io/nuxt-my-icons) page!
+See it in action in [demo](https://gwynerva.github.io/nuxt-my-icons) page or play with the module in live [playground](https://stackblitz.com/edit/nuxt-starter-opz1f7xj?file=app.vue) in browser!
 
 ## Installation
 
