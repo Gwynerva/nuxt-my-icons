@@ -214,6 +214,12 @@ This is a known issue with SVG animation made with tags. It only starts when pag
 If there is a script in `<head>` that is blocking rendering, the icon animation won't start.
 You better use CSS to animate icons.
 
+## TODO
+
+* Prop `rerender: boolean` to fully rerender any icon (bundled, runtime, inline) when it is changed. Because SVG animations behave really weirdly.
+* Find a way to make SVG animations work for bundled icons.
+* Get rid of ugly `../../../` stuff inside `runtime` directory.
+
 ## Contribution
 
 This module was developed using [Bun](https://bun.sh/) framework.<br>
