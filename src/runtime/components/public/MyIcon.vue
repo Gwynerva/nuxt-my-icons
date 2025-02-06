@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useHead, useMyIconBundlePath } from '#imports';
+import { useHead } from '#imports';
 
+import useMyIconBundlePath from '#my-icons-runtime/composables/useMyIconBundlePath';
 import { isMyIcon } from '#my-icons';
 import { createBundleIconData, createMissingIconData, type BundleIconProps, type IconData } from '#my-icons-runtime/icon';
 import { warn } from '#my-icons-runtime/logger';

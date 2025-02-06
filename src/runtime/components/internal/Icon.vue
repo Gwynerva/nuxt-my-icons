@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { h, ref, watch } from 'vue';
-import { useMyIconBundlePath } from '#imports';
 
 import type { IconData } from '#my-icons-runtime/icon';
+import useMyIconBundlePath from '#my-icons-runtime/composables/useMyIconBundlePath';
 
 const props = defineProps<{ data: IconData }>();
 const key = ref(0);

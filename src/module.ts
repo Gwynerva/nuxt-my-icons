@@ -90,9 +90,6 @@ export default defineNuxtModule<ModuleOptions>({
             });
         }
 
-        // Registering composables
-        addImportsDir(RESOLVER.resolve('./runtime/composables'));
-
         // Registering components users can use to insert icons
         addComponentsDir({
             path: RESOLVER.resolve('./runtime/components/public'),

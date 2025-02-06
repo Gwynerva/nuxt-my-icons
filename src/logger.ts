@@ -2,4 +2,4 @@ import { useLogger } from '@nuxt/kit';
 
 import { MODULE_TITLE } from './runtime/global';
 
-export const LOGGER = useLogger(MODULE_TITLE);
+export const LOGGER = useLogger(MODULE_TITLE) as ReturnType<typeof useLogger>;
