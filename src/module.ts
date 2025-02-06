@@ -1,5 +1,5 @@
 import chokidar from 'chokidar';
-import { defineNuxtModule, createResolver, updateTemplates, type Resolver, addComponentsDir, addPlugin, addComponent } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, updateTemplates, type Resolver, addComponentsDir, addPlugin, addImportsDir } from '@nuxt/kit'
 
 import { createModuleError, MODULE_PACKAGE_NAME, MODULE_INTERNAL_PREFIX } from './runtime/global';
 import { ICONS, updateIconsData } from './state';
@@ -13,7 +13,7 @@ export interface ModuleOptions {
     /**
      * Directory with `.svg` icons which will be bundled into icon set.
      *
-     * @default "~~/assets/icons"
+     * @default "assets/icons"
      */
     iconsDir: string;
 
@@ -71,6 +71,9 @@ export default defineNuxtModule<ModuleOptions>({
         _nuxt.options.alias ||= {};
         _nuxt.options.alias[mainTemplate.aliasKey] = await RESOLVER.resolvePath('#build/' + mainTemplate.aliasValue);
 
+        // `.runtime' folder alias for internal usage
+        _nuxt.options.alias['#my-icons-runtime'] = RESOLVER.resolve('./runtime');
+
         // Watching changes to icons and updating icons data, then templates (which rely on icons data)
         if (META.development)
         {
@@ -86,6 +89,9 @@ export default defineNuxtModule<ModuleOptions>({
                 }, 200);
             });
         }
+
+        // Registering composables
+        addImportsDir(RESOLVER.resolve('./runtime/composables'));
 
         // Registering components users can use to insert icons
         addComponentsDir({

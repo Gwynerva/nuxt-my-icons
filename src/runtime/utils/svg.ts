@@ -58,3 +58,20 @@ export function getSvgHash(parsedSvg: ParsedSvg): string
 {
     return fnv1a64(createSvgSymbol(parsedSvg));
 }
+
+let uniqueIdPostfix = 0;
+
+export function makeIdsUnique(xml: string)
+{
+    let innerIdMap: Record<string, string> = {};
+
+    xml.replaceAll(/id="([^"]+)"/gm, (match, id) => {
+        innerIdMap[id] = id + '__' + (++uniqueIdPostfix);
+        return match;
+    });
+
+    for (const [searchId, replacerId] of Object.entries(innerIdMap))
+        xml = xml.replaceAll(searchId, replacerId);
+
+    return xml;
+}

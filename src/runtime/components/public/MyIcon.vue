@@ -1,20 +1,21 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useHead } from '#imports';
+import { useHead, useMyIconBundlePath } from '#imports';
 
 import { isMyIcon } from '#my-icons';
-import { iconBundleUrl, createBundleIconData, createMissingIconData, type BundleIconProps, type IconData } from '../../icon';
-import { warn } from '../../logger';
-import { MISSING_ICON_NAME } from '../../global';
+import { createBundleIconData, createMissingIconData, type BundleIconProps, type IconData } from '#my-icons-runtime/icon';
+import { warn } from '#my-icons-runtime/logger';
+import { MISSING_ICON_NAME } from '#my-icons-runtime/global';
 
 import Icon from '../internal/Icon.vue';
 
 const props = defineProps<BundleIconProps>();
+const bundlePath = useMyIconBundlePath();
 
 useHead({
     link: [
-        // TODO: Due to an issue opened since 2020, browsers can't preload SVG files so we prefetch instead. @see https://github.com/whatwg/fetch/issues/1012
-        { rel: 'prefetch', href: iconBundleUrl(), as: 'image', type: 'image/svg+xml', crossorigin: '' },
+        // Due to an issue opened since 2020, browsers can't preload SVG files so we prefetch instead. @see https://github.com/whatwg/fetch/issues/1012
+        { rel: 'prefetch', href: bundlePath, as: 'image', type: 'image/svg+xml', crossorigin: '' },
     ],
 });
 

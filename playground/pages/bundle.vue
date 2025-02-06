@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import { myIconName } from '#my-icons';
+
+const plusIconName = myIconName('plus');
+const unknownIconName = myIconName('404');
+</script>
+
 <template>
     <h2>Bundled Icons</h2>
     <NuxtLink to="/">Index</NuxtLink>
@@ -5,7 +12,7 @@
         <h3>Block icons:</h3>
         <MyIcon name="house" />
         <MyIcon name="human" class="my-icon" />
-        <MyIcon name="plus" />
+        <MyIcon :name="plusIconName" />
         <MyIcon name="arrow/left" />
     </div>
     <div>

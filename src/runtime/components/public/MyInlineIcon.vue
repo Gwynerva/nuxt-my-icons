@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { createInlineIconData, createMissingIconData, type IconData, type InlineIconProps } from '../../icon';
-import { createSvgSymbol, getSvgHash, parseSvg } from '../../utils/svg';
-import { warn } from '../../logger';
+import { createInlineIconData, createMissingIconData, type IconData, type InlineIconProps } from '#my-icons-runtime/icon';
+import { createSvgSymbol, getSvgHash, makeIdsUnique, parseSvg } from '#my-icons-runtime/utils/svg';
+import { warn } from '#my-icons-runtime/logger';
 
 import Icon from '../internal/Icon.vue';
 
@@ -14,10 +14,13 @@ const iconData = computed<IconData>(() => {
     {
         const parsedSvg = parseSvg(props.svg);
         const hash = getSvgHash(parsedSvg);
+
+        parsedSvg.template = makeIdsUnique(parsedSvg.template);
+
         const href = `__my-icons-inline__${hash}`;
         const symbol = createSvgSymbol(parsedSvg, href);
 
-        return createInlineIconData(props, '#' + href, symbol);
+        return createInlineIconData(props, href, symbol);
     }
     catch (_error: any)
     {

@@ -1,5 +1,4 @@
-import { useNuxtApp } from '#app';
-import { type MyIconName, myIconSetHash, myIconSetRelativeUrl } from '#my-icons';
+import { type MyIconName } from '#my-icons';
 import { MISSING_ICON_NAME } from './global';
 
 //
@@ -14,7 +13,6 @@ interface BaseIconData
     name: string;
     href: string;
     wrapper: 'div' | 'span';
-    forceRerender: boolean;
 }
 
 export interface BundleIconData extends BaseIconData
@@ -51,23 +49,11 @@ export interface InlineIconProps extends BaseIconProps { svg: string; }
 
 type IconProps = BundleIconProps | RuntimeIconProps | InlineIconProps;
 
-export function iconBundleUrl()
-{
-    const nuxtApp = useNuxtApp();
-    return nuxtApp.$config.app.baseURL + myIconSetRelativeUrl + '/icons.svg?' + myIconSetHash;
-}
-
-function bundleIconHref(name: string)
-{
-    return `${iconBundleUrl()}#${name}`;
-}
-
 function createBaseIconData(props: IconProps): Omit<BaseIconData, 'type' | 'href'>
 {
     return {
         name: props.name,
         wrapper: props.wrapper || 'div',
-        forceRerender: false,
     }
 }
 
@@ -76,7 +62,7 @@ export function createBundleIconData(props: BundleIconProps): BundleIconData
     return {
        ...createBaseIconData(props),
        type: 'bundle',
-       href: bundleIconHref(props.name),
+       href: props.name,
     }
 }
 
@@ -96,7 +82,6 @@ export function createInlineIconData(props: InlineIconProps, href: string, symbo
        type: 'inline',
        href,
        symbol: symbol,
-       forceRerender: true,
     }
 }
 
@@ -106,6 +91,6 @@ export function createMissingIconData(props: IconProps): IconData
         ...createBaseIconData(props),
         type: 'bundle',
         name: MISSING_ICON_NAME,
-        href: bundleIconHref(MISSING_ICON_NAME),
+        href: MISSING_ICON_NAME,
     }
 }

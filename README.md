@@ -137,6 +137,7 @@ import {
     myIconSetHash,          // Hash of your icon set
     myIconSetRelativeUrl,   // URL to directory containing moudule's static assets (relative to root)
     myIconNames,            // Object which keys are bundled icon names
+    myIconName,             // Function to manually type guard bundled icon name
     isMyIcon,               // Function to check if name is a bundled icon
     MyIconName,             // Typescript type that validates only bundled icon names
 } from '#my-icons';
@@ -176,7 +177,7 @@ export default defineNuxtConfig({
     myicons: {
         /**
          * Directory where your `.svg` icons are stored.
-         * @default '~~/assets/icons'
+         * @default 'assets/icons'
          */
         iconsDir: 'alternative/path/to/icons',
 
@@ -213,12 +214,6 @@ Workarounds:
 This is a known issue with SVG animation made with tags. It only starts when page has been fully loaded.
 If there is a script in `<head>` that is blocking rendering, the icon animation won't start.
 You better use CSS to animate icons.
-
-## TODO
-
-* Prop `rerender: boolean` to fully rerender any icon (bundled, runtime, inline) when it is changed. Because SVG animations behave really weirdly.
-* Find a way to make SVG animations work for bundled icons.
-* Get rid of ugly `../../../` stuff inside `runtime` directory.
 
 ## Contribution
 

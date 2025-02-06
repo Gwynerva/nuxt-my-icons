@@ -1,7 +1,7 @@
 {
     "name": "nuxt-my-icons",
     "description": "All-in-one toolkit for using SVG icons in your Nuxt site!",
-    "version": "1.0.2",
+    "version": "1.1.0",
     "keywords": [
         "nuxt",
         "icon",
@@ -35,20 +35,20 @@
         "release": "npm run prepack && npm publish && git push --follow-tags"
     },
     "dependencies": {
-        "@nuxt/kit": "^3.15.2"
+        "@nuxt/kit": "^3.15.4"
     },
     "peerDependencies": {
         "chokidar": "^4.0.3"
     },
     "devDependencies": {
         "@nuxt/devtools": "^1.7.0",
-        "@nuxt/eslint-config": "^0.7.5",
+        "@nuxt/eslint-config": "^0.7.6",
         "@nuxt/module-builder": "^0.8.4",
-        "@nuxt/schema": "^3.15.2",
+        "@nuxt/schema": "^3.15.4",
         "@nuxt/test-utils": "^3.15.4",
         "@types/jest": "^29.5.14",
         "@types/node": "latest",
-        "nuxt": "^3.15.2",
+        "nuxt": "^3.15.4",
         "typescript": "~5.7.3",
         "vue-tsc": "^2.2.0"
     }

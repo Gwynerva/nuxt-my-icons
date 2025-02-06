@@ -1,24 +1,28 @@
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
-import type { IconData } from '../../icon';
+import { h, ref, watch } from 'vue';
+import { useMyIconBundlePath } from '#imports';
+
+import type { IconData } from '#my-icons-runtime/icon';
 
 const props = defineProps<{ data: IconData }>();
 const key = ref(0);
 
+const bundlePath = useMyIconBundlePath();
+
 watch(props, () => {
-    if (props.data.forceRerender)
+    if (props.data.type === 'inline')
         key.value++;
 });
 </script>
 
 <template>
     <component
-        :is="data.wrapper"
+        :is="h(data.wrapper)"
         :my-icon="data.name"
         :my-icon-type="data.type">
         <svg :key>
             <defs v-if="data.type === 'inline'" v-html="data.symbol"></defs>
-            <use :href="data.href" />
+            <use :href="(data.type === 'bundle' ? bundlePath : '') + '#' + data.href" />
         </svg>
     </component>
 </template>

@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { useNuxtApp } from '#app';
+import { useNuxtApp } from '#imports';
 
-import { warn } from '../../logger';
-import { createMissingIconData, createRuntimeIconData, type RuntimeIconProps } from '../../icon';
-import { createSvgSymbol, getSvgHash, parseSvg } from '../../utils/svg';
-import { MODULE_INTERNAL_PREFIX } from '../../global';
-import { createStorageElement, getStorageElement, storeRuntimeIcon } from '../../storage';
+import { warn } from '#my-icons-runtime/logger';
+import { createMissingIconData, createRuntimeIconData, type RuntimeIconProps } from '#my-icons-runtime/icon';
+import { createSvgSymbol, getSvgHash, parseSvg } from '#my-icons-runtime/utils/svg';
+import { MODULE_INTERNAL_PREFIX } from '#my-icons-runtime/global';
+import { createStorageElement, getStorageElement, storeRuntimeIcon } from '#my-icons-runtime/storage';
 
 import Icon from '../internal/Icon.vue';
 
@@ -35,7 +35,7 @@ const iconData = computed(() => {
             storeRuntimeIcon(href, symbol);
         }
 
-        return createRuntimeIconData(props, '#' + href);
+        return createRuntimeIconData(props, href);
     }
     catch (_error: any)
     {
