@@ -1,7 +1,7 @@
 {
     "name": "nuxt-my-icons",
     "description": "All-in-one toolkit for using SVG icons in your Nuxt site!",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "keywords": [
         "nuxt",
         "icon",
@@ -19,37 +19,39 @@
     "type": "module",
     "exports": {
         ".": {
-            "types": "./dist/types.d.ts",
-            "import": "./dist/module.mjs",
-            "require": "./dist/module.cjs"
+            "types": "./dist/types.d.mts",
+            "import": "./dist/module.mjs"
         }
     },
-    "main": "./dist/module.cjs",
-    "types": "./dist/types.d.ts",
-    "files": ["dist"],
+    "typesVersions": {
+        "*": {
+            ".": [
+                "./dist/types.d.mts"
+            ]
+        }
+    },
+    "main": "./dist/module.mjs",
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "prepack": "nuxt-module-build build",
         "dev": "nuxi dev playground",
         "dev:build": "nuxi build playground",
         "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
-        "release": "npm run prepack && npm publish && git push --follow-tags"
+        "release": "npm run prepack && npm publish"
     },
     "dependencies": {
-        "@nuxt/kit": "^3.15.4"
+        "@nuxt/kit": "latest"
     },
     "peerDependencies": {
         "chokidar": "^4.0.3"
     },
     "devDependencies": {
-        "@nuxt/devtools": "^1.7.0",
-        "@nuxt/eslint-config": "^0.7.6",
-        "@nuxt/module-builder": "^0.8.4",
-        "@nuxt/schema": "^3.15.4",
-        "@nuxt/test-utils": "^3.15.4",
+        "@nuxt/module-builder": "latest",
         "@types/jest": "^29.5.14",
-        "@types/node": "latest",
-        "nuxt": "^3.15.4",
-        "typescript": "~5.7.3",
-        "vue-tsc": "^2.2.0"
+        "nuxt": "latest",
+        "prettier": "^3.5.3",
+        "vue-tsc": "latest"
     }
 }

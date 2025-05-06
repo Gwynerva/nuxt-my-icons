@@ -6,12 +6,12 @@
 
 All-in-one toolkit for using SVG icons in your Nuxt site!
 
-* No SVG code duplication at all.
-* Automatic bundling separate icons into a single icon set file.
-* Full SSR support. Prerenders even icons created at runtime!
-* Typescript type-hints for icon names.
-* Auto detection of non-existing/invalid icon names.
-* Registering new icons in runtime optimised for repeated use.
+- No SVG code duplication at all.
+- Automatic bundling separate icons into a single icon set file.
+- Full SSR support. Prerenders even icons created at runtime!
+- Typescript type-hints for icon names.
+- Auto detection of non-existing/invalid icon names.
+- Registering new icons in runtime optimised for repeated use.
 
 See it in action in [demo](https://gwynerva.github.io/nuxt-my-icons) page or play with the module in live [playground](https://stackblitz.com/edit/nuxt-starter-opz1f7xj?file=app.vue) in browser!
 
@@ -29,9 +29,7 @@ Add module to `nuxt.config.ts`:
 
 ```ts
 export default defineNuxtConfig({
-    modules: [
-        'nuxt-my-icons',
-    ],
+    modules: ['nuxt-my-icons'],
 });
 ```
 
@@ -91,7 +89,10 @@ If you plan to use the icon once or twice use `<MyInlineIcon>` component:
 
 ```vue
 <script lang="ts" setup>
-const svg = await $fetch<string>('https://api.iconify.design/svg-spinners:270-ring-with-bg.svg', { responseType: 'text' });
+const svg = await $fetch<string>(
+    'https://api.iconify.design/svg-spinners:270-ring-with-bg.svg',
+    { responseType: 'text' },
+);
 </script>
 
 <template>
@@ -112,7 +113,10 @@ The usage and props are the same as `<MyInlineIcon>`:
 
 ```vue
 <script lang="ts" setup>
-const svg = await $fetch<string>('https://api.iconify.design/svg-spinners:blocks-shuffle-3.svg', { responseType: 'text' });
+const svg = await $fetch<string>(
+    'https://api.iconify.design/svg-spinners:blocks-shuffle-3.svg',
+    { responseType: 'text' },
+);
 </script>
 
 <template>
@@ -124,8 +128,8 @@ const svg = await $fetch<string>('https://api.iconify.design/svg-spinners:blocks
 
 All components have common props:
 
-* `name: string` (required) — Name of bundled icon when using `<MyIcon>`. For `<MyRuntimeIcon>` or `<MyInlineIcon>` it's does not have to be unique and purely cosmetic, give a descriptive name that tells, what the icon is or what it does.
-* `wrapper: 'div' | 'span'` (default: `div`) — Wrapper tag for icon.
+- `name: string` (required) — Name of bundled icon when using `<MyIcon>`. For `<MyRuntimeIcon>` or `<MyInlineIcon>` it's does not have to be unique and purely cosmetic, give a descriptive name that tells, what the icon is or what it does.
+- `wrapper: 'div' | 'span'` (default: `div`) — Wrapper tag for icon.
 
 ### Utils
 
@@ -133,13 +137,13 @@ Anywhere within Nuxt context you can access `#my-icons` alias to access module d
 
 ```ts
 import {
-    myMissingIconName,      // Name of missing icon that is used when something goes wrong
-    myIconSetHash,          // Hash of your icon set
-    myIconSetRelativeUrl,   // URL to directory containing moudule's static assets (relative to root)
-    myIconNames,            // Object which keys are bundled icon names
-    myIconName,             // Function to manually type guard bundled icon name
-    isMyIcon,               // Function to check if name is a bundled icon
-    MyIconName,             // Typescript type that validates only bundled icon names
+    myMissingIconName, // Name of missing icon that is used when something goes wrong
+    myIconSetHash, // Hash of your icon set
+    myIconSetRelativeUrl, // URL to directory containing moudule's static assets (relative to root)
+    myIconNames, // Object which keys are bundled icon names
+    myIconName, // Function to manually type guard bundled icon name
+    isMyIcon, // Function to check if name is a bundled icon
+    MyIconName, // Typescript type that validates only bundled icon names
 } from '#my-icons';
 ```
 
@@ -155,8 +159,7 @@ The preferred way to style your icons is to add class to icon component and styl
 </template>
 
 <style>
-.house-icon
-{
+.house-icon {
     color: red;
     font-size: 100px;
 }
@@ -165,8 +168,8 @@ The preferred way to style your icons is to add class to icon component and styl
 
 If you for some reason don't want to create additional classes, you can directly style icons using their custom attributes as CSS selectors:
 
-* `[my-icon="<name>"]`
-* `[my-icon-type="<bundle | inline | runtime>"]`
+- `[my-icon="<name>"]`
+- `[my-icon-type="<bundle | inline | runtime>"]`
 
 ### Module options
 
@@ -186,8 +189,8 @@ export default defineNuxtConfig({
          * @default '_my-icons'
          */
         publicDir: 'foo/bar/baz',
-    }
-})
+    },
+});
 ```
 
 ## Common problems

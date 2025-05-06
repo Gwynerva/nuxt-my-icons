@@ -1,13 +1,11 @@
-import { addTemplate, addTypeTemplate } from '@nuxt/kit';
+import { addTemplate } from '@nuxt/kit';
 
 import { MISSING_ICON_NAME, MODULE_ALIAS } from '../runtime/global';
 import { PATH, templatePath } from '../path';
 import { ICONS } from '../state';
 
-export function createMainTemplate()
-{
+export function createMainTemplate() {
     const tsFilename = templatePath('main.ts');
-    const dtsFilename = templatePath('main.d.ts');
 
     const relativeUrl = PATH.PUBLIC_RELATIVE.replaceAll(/^\/|\/$/gm, '');
 
@@ -15,7 +13,7 @@ export function createMainTemplate()
         export const myMissingIconName = '${MISSING_ICON_NAME}';
         export const myIconSetRelativeUrl = '${relativeUrl}';
         export const myIconSetHash = '${ICONS.hash}';
-        export const myIconNames = ${JSON.stringify(Object.fromEntries(ICONS.names.map(name => [name, 0])))} as const;
+        export const myIconNames = ${JSON.stringify(Object.fromEntries(ICONS.names.map((name) => [name, 0])))} as const;
 
         export function isMyIcon(name: string) {
             return name in myIconNames;
@@ -30,22 +28,12 @@ export function createMainTemplate()
 
     addTemplate({
         filename: tsFilename,
-        write: false, // TODO: Set to `true` when https://github.com/nuxt/nuxt/issues/30575 is fixed */
+        write: true,
         getContents,
     });
 
-    // TODO: Remove this template when https://github.com/nuxt/nuxt/issues/30575 is fixed
-    addTypeTemplate({
-        filename: dtsFilename as any,
-        getContents: () => `
-            declare module '#my-icons' {
-                ${getContents()}
-            }
-        `,
-    });
-
     return {
-        aliasKey:   MODULE_ALIAS,
+        aliasKey: MODULE_ALIAS,
         aliasValue: tsFilename,
-    }
+    };
 }

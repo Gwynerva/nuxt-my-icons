@@ -13,11 +13,17 @@ describe('Indent', () => {
     });
 
     test('Multiple lines', () => {
-        expect(indent('First line\nSecond line\nThird line')).toBe('    First line\n    Second line\n    Third line');
+        expect(indent('First line\nSecond line\nThird line')).toBe(
+            '    First line\n    Second line\n    Third line',
+        );
     });
 
     test('Text with empty lines and space symbols', () => {
-        expect(indent('\n   \n\nFirst line\n  \n\nSecond line\nThird line\n')).toBe('\n   \n\n    First line\n  \n\n    Second line\n    Third line\n');
+        expect(
+            indent('\n   \n\nFirst line\n  \n\nSecond line\nThird line\n'),
+        ).toBe(
+            '\n   \n\n    First line\n  \n\n    Second line\n    Third line\n',
+        );
     });
 
     test('Different indent sizes', () => {

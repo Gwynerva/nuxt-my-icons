@@ -10,8 +10,7 @@ const key = ref(0);
 const bundlePath = useMyIconBundlePath();
 
 watch(props, () => {
-    if (props.data.type === 'inline')
-        key.value++;
+    if (props.data.type === 'inline') key.value++;
 });
 </script>
 
@@ -19,22 +18,25 @@ watch(props, () => {
     <component
         :is="h(data.wrapper)"
         :my-icon="data.name"
-        :my-icon-type="data.type">
+        :my-icon-type="data.type"
+    >
         <svg :key>
             <defs v-if="data.type === 'inline'" v-html="data.symbol"></defs>
-            <use :href="(data.type === 'bundle' ? bundlePath : '') + '#' + data.href" />
+            <use
+                :href="
+                    (data.type === 'bundle' ? bundlePath : '') + '#' + data.href
+                "
+            />
         </svg>
     </component>
 </template>
 
 <style>
-[my-icon]
-{
+[my-icon] {
     line-height: 0;
 }
 
-[my-icon] > svg
-{
+[my-icon] > svg {
     width: 1em;
     height: 1em;
     color: currentColor;

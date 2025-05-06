@@ -6,14 +6,16 @@ export const PATH = {
 
     /** Path to public directory relative to module build directory. */
     PUBLIC_RELATIVE: '',
-}
+};
 
-export function templatePath(relativePath?: string)
-{
+export function templatePath(relativePath?: string) {
     return MODULE_INTERNAL_PREFIX + (relativePath ? '/' + relativePath : '');
 }
 
-export function templatePublicPath(relativePath?: string)
-{
-    return templatePath('public/' + PATH.PUBLIC_RELATIVE + (relativePath ? '/' + relativePath : ''));
+export function templatePublicPath(relativePath?: string) {
+    return templatePath(
+        'public/' +
+            PATH.PUBLIC_RELATIVE +
+            (relativePath ? '/' + relativePath : ''),
+    );
 }

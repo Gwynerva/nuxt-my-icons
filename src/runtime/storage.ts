@@ -1,31 +1,28 @@
 import { MODULE_PACKAGE_NAME } from './global';
 import { indent } from './utils/str';
 
-export function getStorageElement()
-{
+export function getStorageElement() {
     return document.getElementById(MODULE_PACKAGE_NAME);
 }
 
-export function createStorageElement(initialIcons?: Record<string, string>)
-{
-    document.body.insertAdjacentHTML('beforeend', createStorageHtml(initialIcons));
+export function createStorageElement(initialIcons?: Record<string, string>) {
+    document.body.insertAdjacentHTML(
+        'beforeend',
+        createStorageHtml(initialIcons),
+    );
 }
 
-export function storeRuntimeIcon(iconId: string, symbolSvg: string)
-{
-    if (document.getElementById(iconId))
-        return;
+export function storeRuntimeIcon(iconId: string, symbolSvg: string) {
+    if (document.getElementById(iconId)) return;
 
     const storageElement = getStorageElement();
 
-    if (!storageElement)
-        return;
+    if (!storageElement) return;
 
     storageElement.insertAdjacentHTML('beforeend', symbolSvg);
 }
 
-export function createStorageHtml(initialIcons?: Record<string, string>)
-{
+export function createStorageHtml(initialIcons?: Record<string, string>) {
     let symbolsCode = '';
 
     if (initialIcons)

@@ -9,16 +9,14 @@ import { removeCarriageReturns } from './runtime/utils/str';
 import { createSvgSymbol, parseSvg } from './runtime/utils/svg';
 import { fnv1a64 } from './runtime/utils/hash';
 
-export interface IconData
-{
+export interface IconData {
     /** Absolute fs path to the icon file. */
     path: string;
 }
 
 export type IconsData = { [iconName: string]: IconData };
 
-class IconsSingleton
-{
+class IconsSingleton {
     /**
      * Hash of public `icons.svg` file.
      *
@@ -40,37 +38,42 @@ class IconsSingleton
      */
     _symbols: string;
 
-    get names()
-    { return Object.keys(this._data); }
+    get names() {
+        return Object.keys(this._data);
+    }
 
-    get count()
-    { return this.names.length; }
+    get count() {
+        return this.names.length;
+    }
 
-    get hash()
-    { return this._hash; }
+    get hash() {
+        return this._hash;
+    }
 
-    get symbols()
-    { return this._symbols; }
+    get symbols() {
+        return this._symbols;
+    }
 
-    getDataFor(iconName: string)
-    { return this._data[iconName]; }
+    getDataFor(iconName: string) {
+        return this._data[iconName];
+    }
 }
 
-export const ICONS = new IconsSingleton;
+export const ICONS = new IconsSingleton();
 
-export function updateIconsData()
-{
-    ICONS._data =       createIconsData();
-    ICONS._symbols =    createSymbolsCode();
-    ICONS._hash =       META.development ? `dev_${Date.now()}` : fnv1a64(ICONS._symbols).slice(0, 10);
+export function updateIconsData() {
+    ICONS._data = createIconsData();
+    ICONS._symbols = createSymbolsCode();
+    ICONS._hash = META.development
+        ? `dev_${Date.now()}`
+        : fnv1a64(ICONS._symbols).slice(0, 10);
 }
 
 //
 //
 //
 
-function createIconsData()
-{
+function createIconsData() {
     const newData: IconsData = {};
 
     let _paths: string[] = [];
@@ -81,12 +84,10 @@ function createIconsData()
         });
     } catch {}
 
-    for (const _path of _paths)
-    {
+    for (const _path of _paths) {
         const { dir, name, ext } = parse(_path);
 
-        if (ext !== '.svg')
-            continue;
+        if (ext !== '.svg') continue;
 
         newData[(dir ? `${dir}/` : '') + name] = {
             path: resolve(PATH.ICONS_DIR, _path),
@@ -96,24 +97,23 @@ function createIconsData()
     return newData;
 }
 
-function createSymbolsCode()
-{
+function createSymbolsCode() {
     let symbols = '';
 
     symbols += missingIconSymbolCode() + '\n';
 
-    for (const iconName of ICONS.names)
-    {
-        try
-        {
-            const svgCode = removeCarriageReturns(readFileSync(ICONS._data[iconName].path, 'utf-8'));
+    for (const iconName of ICONS.names) {
+        try {
+            const svgCode = removeCarriageReturns(
+                readFileSync(ICONS._data[iconName].path, 'utf-8'),
+            );
             const symbolCode = createSvgSymbol(parseSvg(svgCode), iconName);
             symbols += symbolCode + '\n';
-        }
-        catch (_error: any)
-        {
+        } catch (_error: any) {
             delete ICONS._data[iconName];
-            LOGGER.warn(`Error when creating <symbol> code for icon "${iconName}"! Skipping!\nReason: ${_error.message || _error}`);
+            LOGGER.warn(
+                `Error when creating <symbol> code for icon "${iconName}"! Skipping!\nReason: ${_error.message || _error}`,
+            );
         }
     }
 
@@ -122,8 +122,7 @@ function createSymbolsCode()
     return symbols;
 }
 
-function missingIconSymbolCode()
-{
+function missingIconSymbolCode() {
     const svg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
     <path d="M64 390.3L153.5 256 64 121.7l0 268.6zM102.5 448l179.1 0L192 313.7 102.5 448zm128-192L320 390.3l0-268.6L230.5 256zM281.5 64L102.5 64 192 198.3 281.5 64zM0 48C0 21.5 21.5 0 48 0L336 0c26.5 0 48 21.5 48 48l0 416c0 26.5-21.5 48-48 48L48 512c-26.5 0-48-21.5-48-48L0 48z" />

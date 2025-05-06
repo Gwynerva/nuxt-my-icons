@@ -2,19 +2,17 @@ import { createSvgSymbol, parseSvg } from '~/src/runtime/utils/svg';
 
 describe('Parse SVG', () => {
     test('Normal SVG', () => {
-
-        expect(parseSvg(`
+        expect(
+            parseSvg(`
 
             <!-- Sample comment -->
             <svg id="bar" xmlns="http://www.w3.org/2000/svg" width="100" height="100%" data-baz qux="sample">
                 <path d="M1,5 L9,5"/>
             </svg>
 
-        `)).toEqual({
-            attributes: [
-                'data-baz',
-                'qux="sample"',
-            ],
+        `),
+        ).toEqual({
+            attributes: ['data-baz', 'qux="sample"'],
             template: `
 
             <!-- Sample comment -->
@@ -22,24 +20,28 @@ describe('Parse SVG', () => {
                 <path d="M1,5 L9,5"/>
             </symbol>
 
-        `});
+        `,
+        });
 
-        expect(parseSvg(`
+        expect(
+            parseSvg(`
 
             <svg><path d="M1,5 L9,5"/></svg>
 
-        `)).toEqual({
+        `),
+        ).toEqual({
             attributes: [],
             template: `
 
             <symbol{{ attributes }}><path d="M1,5 L9,5"/></symbol>
 
-        `});
+        `,
+        });
     });
 
     test('SVG with unusual format', () => {
-
-        expect(parseSvg(`
+        expect(
+            parseSvg(`
 
             <!--
                Multi
@@ -57,11 +59,9 @@ describe('Parse SVG', () => {
                 <path d="M1,5 L9,5"/>
             </svg>
 
-        `)).toEqual({
-            attributes: [
-                'data-baz',
-                'qux="sample"',
-            ],
+        `),
+        ).toEqual({
+            attributes: ['data-baz', 'qux="sample"'],
             template: `
 
             <!--
@@ -73,18 +73,17 @@ describe('Parse SVG', () => {
                 <path d="M1,5 L9,5"/>
             </symbol>
 
-        `});
-
+        `,
+        });
     });
 });
 
 test('Create SVG symbol', () => {
-    expect(createSvgSymbol({
-        attributes: [
-            'data-baz',
-            'qux="sample"',
-        ],
-        template: `
+    expect(
+        createSvgSymbol(
+            {
+                attributes: ['data-baz', 'qux="sample"'],
+                template: `
 
         <!--
             Multi
@@ -95,7 +94,11 @@ test('Create SVG symbol', () => {
             <path d="M1,5 L9,5"/>
         </symbol>
 
-    `}, 'symbol-id')).toBe(`
+    `,
+            },
+            'symbol-id',
+        ),
+    ).toBe(`
 
         <!--
             Multi
@@ -108,13 +111,16 @@ test('Create SVG symbol', () => {
 
     `);
 
-    expect(createSvgSymbol({
-        attributes: [],
-        template: `
+    expect(
+        createSvgSymbol({
+            attributes: [],
+            template: `
 
         <symbol{{ attributes }}><path d="M1,5 L9,5"/></symbol>
 
-    `})).toBe(`
+    `,
+        }),
+    ).toBe(`
 
         <symbol><path d="M1,5 L9,5"/></symbol>
 

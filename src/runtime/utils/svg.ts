@@ -1,72 +1,58 @@
 import { fnv1a64 } from './hash';
 
-export interface ParsedSvg
-{
+export interface ParsedSvg {
     attributes: string[];
     template: string;
 }
 
-export function parseSvg(svg: string): ParsedSvg
-{
-    const svgTagRegex = /<svg((?=\s)(?!(?:[^>"\']|"[^"]*"|\'[^\']*\')*?(?<=\s)(?:term|range)\s*=)(?!\s*\/?>)\s+(?:".*?"|\'.*?\'|[^>]*?)+|\s*)>/;
+export function parseSvg(svg: string): ParsedSvg {
+    const svgTagRegex =
+        /<svg((?=\s)(?!(?:[^>"\']|"[^"]*"|\'[^\']*\')*?(?<=\s)(?:term|range)\s*=)(?!\s*\/?>)\s+(?:".*?"|\'.*?\'|[^>]*?)+|\s*)>/;
     const match = svg.match(svgTagRegex);
 
-    if (!match)
-        throw new Error('Invalid SVG: No <svg> tag found!');
+    if (!match) throw new Error('Invalid SVG: No <svg> tag found!');
 
-    const attributesToDrop = [
-        'id',
-        'version',
-        'xmlns',
-        'width',
-        'height',
-    ];
+    const attributesToDrop = ['id', 'version', 'xmlns', 'width', 'height'];
 
-    const attributes = match[1]
-        .split(/\s+/)
-        .filter(attribute => {
-            if (!attribute.trim())
-                return false;
+    const attributes = match[1].split(/\s+/).filter((attribute) => {
+        if (!attribute.trim()) return false;
 
-            for (const attributeToDrop of attributesToDrop)
-                if (attribute.startsWith(attributeToDrop))
-                    return false;
+        for (const attributeToDrop of attributesToDrop)
+            if (attribute.startsWith(attributeToDrop)) return false;
 
-            return true;
-        });
+        return true;
+    });
 
-    const template = svg.replace(svgTagRegex, `<symbol{{ attributes }}>`).replace(/<\/svg>/, '</symbol>');
+    const template = svg
+        .replace(svgTagRegex, `<symbol{{ attributes }}>`)
+        .replace(/<\/svg>/, '</symbol>');
 
     return {
         attributes,
         template,
-    }
+    };
 }
 
-export function createSvgSymbol(parsedSvg: ParsedSvg, id?: string): string
-{
-    const attributes = [
-        ...(id ? [`id="${ id }"`] : []),
-        ...parsedSvg.attributes,
-    ];
+export function createSvgSymbol(parsedSvg: ParsedSvg, id?: string): string {
+    const attributes = [...(id ? [`id="${id}"`] : []), ...parsedSvg.attributes];
 
-    const attributesString = attributes.length ? ' ' + attributes.join(' ') : '';
+    const attributesString = attributes.length
+        ? ' ' + attributes.join(' ')
+        : '';
     return parsedSvg.template.replace('{{ attributes }}', attributesString);
 }
 
-export function getSvgHash(parsedSvg: ParsedSvg): string
-{
+export function getSvgHash(parsedSvg: ParsedSvg): string {
     return fnv1a64(createSvgSymbol(parsedSvg));
 }
 
 let uniqueIdPostfix = 0;
 
-export function makeIdsUnique(xml: string)
-{
+export function makeIdsUnique(xml: string) {
     let innerIdMap: Record<string, string> = {};
 
     xml.replaceAll(/id="([^"]+)"/gm, (match, id) => {
-        innerIdMap[id] = id + '__' + (++uniqueIdPostfix);
+        innerIdMap[id] = id + '__' + ++uniqueIdPostfix;
         return match;
     });
 

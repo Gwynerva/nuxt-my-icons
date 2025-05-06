@@ -1,7 +1,19 @@
 import chokidar from 'chokidar';
-import { defineNuxtModule, createResolver, updateTemplates, type Resolver, addComponentsDir, addPlugin, addImportsDir } from '@nuxt/kit'
+import {
+    defineNuxtModule,
+    createResolver,
+    updateTemplates,
+    type Resolver,
+    addComponentsDir,
+    addPlugin,
+    addImportsDir,
+} from '@nuxt/kit';
 
-import { createModuleError, MODULE_PACKAGE_NAME, MODULE_INTERNAL_PREFIX } from './runtime/global';
+import {
+    createModuleError,
+    MODULE_PACKAGE_NAME,
+    MODULE_INTERNAL_PREFIX,
+} from './runtime/global';
 import { ICONS, updateIconsData } from './state';
 import { PATH, templatePath, templatePublicPath } from './path';
 import { LOGGER } from './logger';
@@ -42,8 +54,8 @@ export default defineNuxtModule<ModuleOptions>({
         name: MODULE_PACKAGE_NAME,
         configKey: 'myicons',
         compatibility: {
-            nuxt: '>=3.15.1'
-        }
+            nuxt: '>=3.17.2',
+        },
     },
     defaults: {
         iconsDir: '~~/assets/icons',
@@ -57,7 +69,9 @@ export default defineNuxtModule<ModuleOptions>({
         RESOLVER = createResolver(import.meta.url);
 
         NUXT_BUILD_DIR_PATH = await RESOLVER.resolvePath('#build');
-        MODULE_BUILD_DIR_PATH = await RESOLVER.resolvePath('#build/' + MODULE_INTERNAL_PREFIX);
+        MODULE_BUILD_DIR_PATH = await RESOLVER.resolvePath(
+            '#build/' + MODULE_INTERNAL_PREFIX,
+        );
 
         PATH.ICONS_DIR = await RESOLVER.resolvePath(_options.iconsDir);
         PATH.PUBLIC_RELATIVE = _options.publicDir;
@@ -69,25 +83,33 @@ export default defineNuxtModule<ModuleOptions>({
         const mainTemplate = createMainTemplate();
 
         _nuxt.options.alias ||= {};
-        _nuxt.options.alias[mainTemplate.aliasKey] = await RESOLVER.resolvePath('#build/' + mainTemplate.aliasValue);
+        _nuxt.options.alias[mainTemplate.aliasKey] = await RESOLVER.resolvePath(
+            '#build/' + mainTemplate.aliasValue,
+        );
 
         // `.runtime' folder alias for internal usage
-        _nuxt.options.alias['#my-icons-runtime'] = RESOLVER.resolve('./runtime');
+        _nuxt.options.alias['#my-icons-runtime'] =
+            RESOLVER.resolve('./runtime');
 
         // Watching changes to icons and updating icons data, then templates (which rely on icons data)
-        if (META.development)
-        {
-            chokidar.watch(PATH.ICONS_DIR, { ignoreInitial: true }).on('all', (_event, _path) => {
-                clearTimeout(UPDATE_DELAY);
-                UPDATE_DELAY = setTimeout(async () => {
-                    if (RESOLVER.resolve(_path).startsWith(PATH.ICONS_DIR)) {
-                        LOGGER.info('Icons directory changed! Updating icons data...');
-                        updateIconsData();
-                        await updateModuleTemplates();
-                        logBuildFinish();
-                    }
-                }, 200);
-            });
+        if (META.development) {
+            chokidar
+                .watch(PATH.ICONS_DIR, { ignoreInitial: true })
+                .on('all', (_event, _path) => {
+                    clearTimeout(UPDATE_DELAY);
+                    UPDATE_DELAY = setTimeout(async () => {
+                        if (
+                            RESOLVER.resolve(_path).startsWith(PATH.ICONS_DIR)
+                        ) {
+                            LOGGER.info(
+                                'Icons directory changed! Updating icons data...',
+                            );
+                            updateIconsData();
+                            await updateModuleTemplates();
+                            logBuildFinish();
+                        }
+                    }, 200);
+                });
         }
 
         // Registering components users can use to insert icons
@@ -105,7 +127,7 @@ export default defineNuxtModule<ModuleOptions>({
         logBuildFinish();
     },
     hooks: {
-        'nitro:config': _config => {
+        'nitro:config': (_config) => {
             // Registering module public directory with static assets
             _config.publicAssets ||= [];
             _config.publicAssets.push({
@@ -113,35 +135,54 @@ export default defineNuxtModule<ModuleOptions>({
                 maxAge: META.development ? 0 : 60 * 60 * 24 * 30,
             });
         },
-    }
+    },
 });
 
 async function ensurePathsAreSafe() {
-    const prohibitedPathMatch = OPTIONS.publicDir.match(/(^\/|^\.\/|^\.\.\/|\/\.\/|\/\.\.\/)/);
+    const prohibitedPathMatch = OPTIONS.publicDir.match(
+        /(^\/|^\.\/|^\.\.\/|\/\.\/|\/\.\.\/)/,
+    );
 
     if (prohibitedPathMatch)
-        throw createModuleError(`The public directory path for icons "${OPTIONS.publicDir}" cannot be absolute or contain relative path symbols!`);
+        throw createModuleError(
+            `The public directory path for icons "${OPTIONS.publicDir}" cannot be absolute or contain relative path symbols!`,
+        );
 
     // Never let module working directory path leave Nuxt <buildDir> or valuable project files can be deleted!
     // This should not happen, but I leave it here just to make sure...
 
-    const moduleBuildDirPath = await RESOLVER.resolvePath('#build/' + templatePath());
-    const modulePublicDirPath = await RESOLVER.resolvePath('#build/' + templatePublicPath());
+    const moduleBuildDirPath = await RESOLVER.resolvePath(
+        '#build/' + templatePath(),
+    );
+    const modulePublicDirPath = await RESOLVER.resolvePath(
+        '#build/' + templatePublicPath(),
+    );
 
     if (!moduleBuildDirPath.startsWith(NUXT_BUILD_DIR_PATH))
-        throw createModuleError(`The module working directory "${moduleBuildDirPath}" must be within Nuxt "<buildDir>" directory: "${NUXT_BUILD_DIR_PATH}"!`);
+        throw createModuleError(
+            `The module working directory "${moduleBuildDirPath}" must be within Nuxt "<buildDir>" directory: "${NUXT_BUILD_DIR_PATH}"!`,
+        );
 
     if (!modulePublicDirPath.startsWith(NUXT_BUILD_DIR_PATH))
-        throw createModuleError(`The module static assets directory "${modulePublicDirPath}" must be within Nuxt "<buildDir>" directory: "${NUXT_BUILD_DIR_PATH}"!`);
+        throw createModuleError(
+            `The module static assets directory "${modulePublicDirPath}" must be within Nuxt "<buildDir>" directory: "${NUXT_BUILD_DIR_PATH}"!`,
+        );
 }
 
 async function updateModuleTemplates() {
     await updateTemplates({
-        filter: template => template.filename.startsWith(MODULE_INTERNAL_PREFIX),
+        filter: (template) =>
+            template.filename.startsWith(MODULE_INTERNAL_PREFIX),
     });
 }
 
 function logBuildFinish() {
     if (ICONS.count === 0) LOGGER.warn(`No icons registered!`);
-    else LOGGER.success(ICONS.count + ' ' + (ICONS.count === 1 ? 'icon' : 'icons') + ' registered!');
+    else
+        LOGGER.success(
+            ICONS.count +
+                ' ' +
+                (ICONS.count === 1 ? 'icon' : 'icons') +
+                ' registered!',
+        );
 }

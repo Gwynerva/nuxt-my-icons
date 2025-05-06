@@ -3,14 +3,12 @@
 </template>
 
 <style>
-.block-icons [my-icon]
-{
+.block-icons [my-icon] {
     color: rgb(87, 87, 87);
     font-size: 50px;
 }
 
-p
-{
+p {
     color: green;
 }
 </style>

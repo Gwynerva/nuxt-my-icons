@@ -1,8 +1,12 @@
 import { useRuntimeConfig } from '#imports';
 import { myIconSetRelativeUrl, myIconSetHash } from '#my-icons';
 
-export default function()
-{
+export default function () {
     const runtimeConfig = useRuntimeConfig();
-    return runtimeConfig.app.baseURL + myIconSetRelativeUrl + '/icons.svg?' + myIconSetHash;
+    return (
+        runtimeConfig.app.baseURL +
+        myIconSetRelativeUrl +
+        '/icons.svg?' +
+        myIconSetHash
+    );
 }

@@ -5,7 +5,7 @@ import * as iconData from '#my-icons';
 <template>
     <h2>Import Data</h2>
     <NuxtLink to="/">Index</NuxtLink>
-    <pre>
-{{ JSON.stringify(iconData, null, 4) }}
+    <pre
+        >{{ JSON.stringify(iconData, null, 4) }}
     </pre>
 </template>

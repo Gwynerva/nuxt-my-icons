@@ -17,7 +17,10 @@ const unknownIconName = myIconName('404');
     </div>
     <div>
         <h3>Inline icons:</h3>
-        <p>This <MyIcon name="house" wrapper="span" /> is some <MyIcon name="plus" wrapper="span" /> paragraph text.</p>
+        <p>
+            This <MyIcon name="house" wrapper="span" /> is some
+            <MyIcon name="plus" wrapper="span" /> paragraph text.
+        </p>
     </div>
     <div>
         <h3>Unknown icon:</h3>
