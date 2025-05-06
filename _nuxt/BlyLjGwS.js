@@ -1,2 +1,0 @@
-import{_ as r,b as m,w as i,c as p}from"./B6KVz70P.js";import{p as l,g as _,m as g,c as u}from"./C2VoMU96.js";import{e as v,v as d,E as f,o as h}from"./BdCi6xpR.js";const $=v({__name:"MyInlineIcon",props:{svg:{},name:{},wrapper:{}},setup(t){const e=t,o=d(()=>{try{const a=l(e.svg),s=_(a);a.template=g(a.template);const n=`__my-icons-inline__${s}`,c=u(a,n);return m(e,n,c)}catch(a){return i(`Failed to resolve inline icon "${e.name}"!
-Reason: ${(a==null?void 0:a.message)||a}`),p(e)}});return(a,s)=>(h(),f(r,{data:o.value},null,8,["data"]))}});export{$ as _};
