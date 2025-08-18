@@ -6,7 +6,6 @@ import {
     type Resolver,
     addComponentsDir,
     addPlugin,
-    addImportsDir,
 } from '@nuxt/kit';
 
 import {

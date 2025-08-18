@@ -66,13 +66,6 @@ This registers three icons which you can use anywhere in your site with globally
 </template>
 ```
 
-By default all icons are wrapped in `<div>` tag.
-Use `wrapper` prop to change the wrapper tag.
-
-```html
-<p>I like my <MyIcon name="home" wrapper="span" /> house!</p>
-```
-
 Keep in mind that all `.svg` files in icons folder (`/assets/icons` by default) will be bundled into a single icon set file, no matter whether you use them or not!
 This icon set file is loaded (actually, prefetched) on each page load!
 That is why you should only bundle icons you sure **will** be used in your site.
@@ -96,11 +89,9 @@ const svg = await $fetch<string>(
 </script>
 
 <template>
-    <MyInlineIcon name="loading-spinner" :svg />
+    <MyInlineIcon :svg />
 </template>
 ```
-
-The `name` prop is required but does not have to be unique and purely cosmetic. Name however you want, but I suggest you to give a descriptive name that tells, what the icon is or what it does.
 
 Keep in mind that each inline icon holds it's own SVG content!
 **100 inline icons = 100 separate SVG contents**, even if all of icons are the same!
@@ -120,16 +111,9 @@ const svg = await $fetch<string>(
 </script>
 
 <template>
-    <MyRuntimeIcon name="shuffle-spinner" :svg />
+    <MyRuntimeIcon :svg />
 </template>
 ```
-
-### Component's props
-
-All components have common props:
-
-- `name: string` (required) — Name of bundled icon when using `<MyIcon>`. For `<MyRuntimeIcon>` or `<MyInlineIcon>` it's does not have to be unique and purely cosmetic, give a descriptive name that tells, what the icon is or what it does.
-- `wrapper: 'div' | 'span'` (default: `div`) — Wrapper tag for icon.
 
 ### Utils
 
@@ -168,7 +152,7 @@ The preferred way to style your icons is to add class to icon component and styl
 
 If you for some reason don't want to create additional classes, you can directly style icons using their custom attributes as CSS selectors:
 
-- `[my-icon="<name>"]`
+- `[my-icon-name="<name>"]`
 - `[my-icon-type="<bundle | inline | runtime>"]`
 
 ### Module options

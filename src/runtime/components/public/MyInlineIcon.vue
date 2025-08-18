@@ -29,12 +29,12 @@ const iconData = computed<IconData>(() => {
         const href = `__my-icons-inline__${hash}`;
         const symbol = createSvgSymbol(parsedSvg, href);
 
-        return createInlineIconData(props, href, symbol);
+        return createInlineIconData(href, symbol);
     } catch (_error: any) {
         warn(
-            `Failed to resolve inline icon "${props.name}"!\nReason: ${_error?.message || _error}`,
+            `Failed to resolve inline icon!\nReason: ${_error?.message || _error}`,
         );
-        return createMissingIconData(props);
+        return createMissingIconData();
     }
 });
 </script>

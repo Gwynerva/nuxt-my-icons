@@ -35,7 +35,7 @@ useHead({
 const iconData = computed<IconData>(() => {
     if (!isMyIcon(props.name) && props.name !== MISSING_ICON_NAME) {
         warn(`Unknown icon name "${props.name}"!`);
-        return createMissingIconData(props);
+        return createMissingIconData();
     }
 
     return createBundleIconData(props);

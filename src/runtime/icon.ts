@@ -9,13 +9,12 @@ type IconDataType = 'bundle' | 'runtime' | 'inline';
 
 interface BaseIconData {
     type: IconDataType;
-    name: string;
     href: string;
-    wrapper: 'div' | 'span';
 }
 
 export interface BundleIconData extends BaseIconData {
     type: 'bundle';
+    name: string;
 }
 
 export interface RuntimeIconData extends BaseIconData {
@@ -33,36 +32,20 @@ export type IconData = BundleIconData | RuntimeIconData | InlineIconData;
 // Icon Props
 //
 
-interface BaseIconProps {
-    name: string;
-    wrapper?: 'div' | 'span';
-}
-
-export interface BundleIconProps extends BaseIconProps {
+export interface BundleIconProps {
     name: MyIconName;
 }
-export interface RuntimeIconProps extends BaseIconProps {
+export interface RuntimeIconProps {
     svg: string;
 }
-export interface InlineIconProps extends BaseIconProps {
+export interface InlineIconProps {
     svg: string;
-}
-
-type IconProps = BundleIconProps | RuntimeIconProps | InlineIconProps;
-
-function createBaseIconData(
-    props: IconProps,
-): Omit<BaseIconData, 'type' | 'href'> {
-    return {
-        name: props.name,
-        wrapper: props.wrapper || 'div',
-    };
 }
 
 export function createBundleIconData(props: BundleIconProps): BundleIconData {
     return {
-        ...createBaseIconData(props),
         type: 'bundle',
+        name: props.name,
         href: props.name,
     };
 }
@@ -72,28 +55,24 @@ export function createRuntimeIconData(
     href: string,
 ): RuntimeIconData {
     return {
-        ...createBaseIconData(props),
         type: 'runtime',
         href,
     };
 }
 
 export function createInlineIconData(
-    props: InlineIconProps,
     href: string,
     symbol: string,
 ): InlineIconData {
     return {
-        ...createBaseIconData(props),
         type: 'inline',
         href,
         symbol: symbol,
     };
 }
 
-export function createMissingIconData(props: IconProps): IconData {
+export function createMissingIconData(): IconData {
     return {
-        ...createBaseIconData(props),
         type: 'bundle',
         name: MISSING_ICON_NAME,
         href: MISSING_ICON_NAME,

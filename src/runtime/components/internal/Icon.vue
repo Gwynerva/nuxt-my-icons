@@ -15,31 +15,25 @@ watch(props, () => {
 </script>
 
 <template>
-    <component
-        :is="h(data.wrapper)"
-        :my-icon="data.name"
+    <svg
+        :key
+        my-icon
         :my-icon-type="data.type"
+        :my-icon-name="data.type === 'bundle' && data.name"
     >
-        <svg :key>
-            <defs v-if="data.type === 'inline'" v-html="data.symbol"></defs>
-            <use
-                :href="
-                    (data.type === 'bundle' ? bundlePath : '') + '#' + data.href
-                "
-            />
-        </svg>
-    </component>
+        <defs v-if="data.type === 'inline'" v-html="data.symbol"></defs>
+        <use
+            :href="(data.type === 'bundle' ? bundlePath : '') + '#' + data.href"
+        />
+    </svg>
 </template>
 
 <style>
 [my-icon] {
-    line-height: 0;
-}
-
-[my-icon] > svg {
     width: 1em;
     height: 1em;
     color: currentColor;
     fill: currentColor;
+    vertical-align: -0.125em;
 }
 </style>

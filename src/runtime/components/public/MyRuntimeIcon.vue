@@ -47,9 +47,9 @@ const iconData = computed(() => {
         return createRuntimeIconData(props, href);
     } catch (_error: any) {
         warn(
-            `Failed to resolve runtime icon "${props.name}"!\nReason: ${_error?.message || _error}`,
+            `Failed to resolve runtime icon!\nReason: ${_error?.message || _error}`,
         );
-        return createMissingIconData(props);
+        return createMissingIconData();
     }
 });
 </script>

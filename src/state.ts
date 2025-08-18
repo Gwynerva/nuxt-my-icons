@@ -105,7 +105,7 @@ function createSymbolsCode() {
     for (const iconName of ICONS.names) {
         try {
             const svgCode = removeCarriageReturns(
-                readFileSync(ICONS._data[iconName].path, 'utf-8'),
+                readFileSync(ICONS._data[iconName]!.path, 'utf-8'),
             );
             const symbolCode = createSvgSymbol(parseSvg(svgCode), iconName);
             symbols += symbolCode + '\n';

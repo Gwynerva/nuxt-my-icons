@@ -2,6 +2,7 @@
 import { myIconName } from '#my-icons';
 
 const plusIconName = myIconName('plus');
+// @ts-expect-error
 const unknownIconName = myIconName('404');
 </script>
 
@@ -18,8 +19,8 @@ const unknownIconName = myIconName('404');
     <div>
         <h3>Inline icons:</h3>
         <p>
-            This <MyIcon name="house" wrapper="span" /> is some
-            <MyIcon name="plus" wrapper="span" /> paragraph text.
+            This <MyIcon name="house" /> is some
+            <MyIcon name="plus" /> paragraph text.
         </p>
     </div>
     <div>

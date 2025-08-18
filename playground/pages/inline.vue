@@ -26,25 +26,24 @@ onMounted(() => {
     <NuxtLink to="/">Index</NuxtLink>
     <div class="block-icons">
         <h3>Block icons:</h3>
-        <MyInlineIcon name="Runtime SVG 1" :svg="svg1" style="color: blue" />
-        <MyInlineIcon name="Runtime SVG 2" :svg="svg2" />
-        <MyInlineIcon name="Runtime SVG 3" :svg="svg3" />
-        <MyInlineIcon name="Await SVG" :svg="svgAwait" />
+        <MyInlineIcon :svg="svg1" style="color: blue" />
+        <MyInlineIcon :svg="svg2" />
+        <MyInlineIcon :svg="svg3" />
+        <MyInlineIcon :svg="svgAwait" />
         <h3>Changing icon:</h3>
-        <MyInlineIcon name="Timeout SVG" :svg="currentChanging" />
+        <MyInlineIcon :svg="currentChanging" />
     </div>
     <div>
         <h3>Inline icons:</h3>
         <p>
             This
-            <MyInlineIcon name="Runtime SVG 1" :svg="svg1" wrapper="span" /> is
-            some
-            <MyInlineIcon name="Await SVG" :svg="svgAwait" wrapper="span" />
+            <MyInlineIcon :svg="svg1" wrapper="span" /> is some
+            <MyInlineIcon :svg="svgAwait" wrapper="span" />
             paragraph text.
         </p>
     </div>
     <div>
         <h3>Broken icon:</h3>
-        <MyInlineIcon name="Broken Icon" :svg="'<broken></broken>'" />
+        <MyInlineIcon :svg="'<broken></broken>'" />
     </div>
 </template>
