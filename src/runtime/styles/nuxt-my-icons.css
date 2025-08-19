@@ -1,0 +1,9 @@
+@layer nuxt-my-icons {
+    [my-icon] {
+        width: 1em;
+        height: 1em;
+        color: currentColor;
+        fill: currentColor;
+        vertical-align: -0.125em;
+    }
+}

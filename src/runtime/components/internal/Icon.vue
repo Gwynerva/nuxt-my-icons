@@ -27,13 +27,3 @@ watch(props, () => {
         />
     </svg>
 </template>
-
-<style>
-[my-icon] {
-    width: 1em;
-    height: 1em;
-    color: currentColor;
-    fill: currentColor;
-    vertical-align: -0.125em;
-}
-</style>

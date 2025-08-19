@@ -12,7 +12,7 @@ const unknownIconName = myIconName('404');
     <div class="block-icons">
         <h3>Block icons:</h3>
         <MyIcon name="house" />
-        <MyIcon name="human" class="my-icon" />
+        <MyIcon name="human" class="overrideDefaults" />
         <MyIcon :name="plusIconName" />
         <MyIcon name="arrow/left" />
     </div>
@@ -28,3 +28,11 @@ const unknownIconName = myIconName('404');
         <MyIcon name="css" />
     </div>
 </template>
+
+<style>
+.overrideDefaults {
+    width: 25px;
+    height: 25px;
+    color: red;
+}
+</style>

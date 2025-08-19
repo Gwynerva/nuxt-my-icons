@@ -86,6 +86,11 @@ export default defineNuxtModule<ModuleOptions>({
             '#build/' + mainTemplate.aliasValue,
         );
 
+        // Injecting icon styles as early as possible so they could be easily overridden
+        _nuxt.options.css.unshift(
+            RESOLVER.resolve('./runtime/styles/nuxt-my-icons.css'),
+        );
+
         // `.runtime' folder alias for internal usage
         _nuxt.options.alias['#my-icons-runtime'] =
             RESOLVER.resolve('./runtime');
