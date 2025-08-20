@@ -45,7 +45,8 @@ npx nuxi module add nuxt-my-icons
 
 ### `<MyIcon>`
 
-By default "My Icons" module will scan `/assets/icons` folder for any `.svg` files (including subfolders) and bundle all of them into single icon set file.<br>
+By default "My Icons" module will scan `/assets/icons` folder for any `.svg` files (including subfolders) and bundle all of them into single icon set file.
+The directory to skan for icons can be customized in Nuxt config via `iconsDir` property (works with aliases too).
 Consider the following file structure:
 
 ```
@@ -115,6 +116,36 @@ const svg = await $fetch<string>(
 </template>
 ```
 
+### `<MaybeMyIcon>`
+
+Use `<MaybeMyIcon :name :fallback>` if you are not sure whether the given `:name` string is an actual bundled icon name or just some SVG code.
+
+1. If `:name` is a bundled icon name, it will render `<MyIcon>`
+2. If `:name` is an SVG string, it will render `<MyRuntimeIcon>` by default
+3. Pass `inline` or `runtime` to `:fallback` attribute to manually control which component is rendered if given string is not a bundled icon name.
+
+```vue
+<script lang="ts" setup>
+const svg1 = `<svg...>`;
+const svg2 = `<svg...>`;
+const svg3 = `<svg...>`;
+</script>
+
+<template>
+    <MaybeMyIcon name="human" />
+    <!-- Renders <MyIcon name="human" /> -->
+
+    <MaybeMyIcon :name="svg1" fallback="inline" />
+    <!-- Renders <MyInlineIcon :svg="svg1" /> -->
+
+    <MaybeMyIcon :name="svg2" fallback="runtime" />
+    <!-- Renders <MyRuntimeIcon :svg="svg2" /> -->
+
+    <MaybeMyIcon :name="svg3" />
+    <!-- Renders <MyRuntimeIcon :svg="svg3" /> -->
+</template>
+```
+
 ### Utils
 
 Anywhere within Nuxt context you can access `#my-icons` alias to access module data:
@@ -125,9 +156,9 @@ import {
     myIconSetHash, // Hash of your icon set
     myIconSetRelativeUrl, // URL to directory containing moudule's static assets (relative to root)
     myIconNames, // Object which keys are bundled icon names
-    myIconName, // Function to manually type guard bundled icon name
     isMyIcon, // Function to check if name is a bundled icon
     MyIconName, // Typescript type that validates only bundled icon names
+    MaybeMyIconName, // Typescript type that provides typehints for icon names, but allows any string
 } from '#my-icons';
 ```
 
@@ -152,6 +183,7 @@ The preferred way to style your icons is to add class to icon component and styl
 
 If you for some reason don't want to create additional classes, you can directly style icons using their custom attributes as CSS selectors:
 
+- `[my-icon]`
 - `[my-icon-name="<name>"]`
 - `[my-icon-type="<bundle | inline | runtime>"]`
 

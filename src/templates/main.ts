@@ -15,15 +15,13 @@ export function createMainTemplate() {
         export const myIconSetHash = '${ICONS.hash}';
         export const myIconNames = ${JSON.stringify(Object.fromEntries(ICONS.names.map((name) => [name, 0])))} as const;
 
-        export function isMyIcon(name: string) {
+        export function isMyIcon(name: string): name is MyIconName {
             return name in myIconNames;
         }
 
-        export function myIconName(name: MyIconName) {
-            return name;
-        }
-
         export type MyIconName = (keyof typeof myIconNames) | typeof myMissingIconName;
+
+        export type MaybeMyIconName = MyIconName | (string & {});
     `;
 
     addTemplate({

@@ -1,9 +1,7 @@
 <script lang="ts" setup>
-import { myIconName } from '#my-icons';
+import { type MyIconName } from '#my-icons';
 
-const plusIconName = myIconName('plus');
-// @ts-expect-error
-const unknownIconName = myIconName('404');
+const plusIconName: MyIconName = 'plus';
 </script>
 
 <template>
