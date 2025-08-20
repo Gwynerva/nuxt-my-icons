@@ -1,0 +1,2 @@
+import{_ as n}from"./D-vPTVAr.js";import{i as a}from"./v3fR_TgD.js";import{e as r,c as s,a as e,b as m,w as p,t as i,F as l,o as _,d as u}from"./DVPWWsn_.js";const g=r({__name:"import",setup(c){return(d,t)=>{const o=n;return _(),s(l,null,[t[1]||(t[1]=e("h2",null,"Import Data",-1)),m(o,{to:"/"},{default:p(()=>t[0]||(t[0]=[u("Index",-1)])),_:1,__:[0]}),e("pre",null,i(JSON.stringify(a,null,4))+`
+    `,1)],64)}}});export{g as default};
